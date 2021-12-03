@@ -1,0 +1,57 @@
+{
+  "name": "minin",
+  "version": "1.0.0",
+  "description": "education advanced JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development webpack --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "watch": "cross-env NODE_ENV=development webpack serve --mode development --open"
+  },
+  "browserslist": "> 0.25%, not dead",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gbxbro/education.git"
+  },
+  "keywords": [
+    "JS",
+    "JavaScript",
+    "git",
+    "flow",
+    "webpack",
+    "patterns",
+    "architecture",
+    "framework"
+  ],
+  "author": "Dmitry Gavrilov <gavrstyle@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gbxbro/education/issues"
+  },
+  "homepage": "https://github.com/Gbxbro/education#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-loader": "^4.0.2",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^6.2.1",
+    "sass-loader": "^12.3.0",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  }
+}
