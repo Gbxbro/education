@@ -27,7 +27,7 @@ const jsLoader = () => {
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
-    entry: ['@babel/polyfill', './js/main.js'],
+    entry: ['@babel/polyfill', './main.js'],
     output: {
         filename: isDev ? 'bundle.js' : 'bundle.[hash].js',
         path: path.resolve(__dirname, 'dist')
