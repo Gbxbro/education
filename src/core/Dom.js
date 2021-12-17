@@ -9,6 +9,29 @@ class Dom {
         return this.$el.dataset
     }
 
+    get text() {
+        return this.$el.textContent.trim()
+    }
+
+    set text(text) {
+        if (typeof text === 'string') {
+            this.$el.textContent = text
+        } else {
+            throw new Error(`the passed value: ${text} is not a string`)
+        }
+    }
+
+    id(parse) {
+        if (parse) {
+            const parsed = this.id().split(':')
+            return {
+                row: +parsed[0],
+                col: +parsed[1]
+            }
+        }
+        return this.data.id
+    }
+
     html(html) {
         if (typeof (html) === 'string') {
             this.$el.innerHTML = html
@@ -50,11 +73,24 @@ class Dom {
     }
 
     find(selector) {
-        return this.$el.querySelector(selector)
+        return $(this.$el.querySelector(selector))
     }
 
     findAll(selector) {
         return this.$el.querySelectorAll(selector)
+    }
+
+    addClass(className) {
+        this.$el.classList.add(className)
+    }
+
+    removeClass(className) {
+        this.$el.classList.remove(className)
+    }
+
+    focus() {
+        this.$el.focus()
+        return this
     }
 
     append(node) {
