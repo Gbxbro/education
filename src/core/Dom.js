@@ -54,7 +54,7 @@ class Dom {
     }
 
     closest(selector) {
-        return this.$el.closest(selector)
+        return $(this.$el.closest(selector))
     }
 
     getCoord() {

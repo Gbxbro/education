@@ -3,8 +3,8 @@ import {$} from '@core/Dom'
 export function resizeHandler(event) {
     const $table = $(event.currentTarget)
     const $resizer = $(event.target)
-    const $parent = $($resizer.closest('[data-type="resizable"]'))
-    const $resizeLine = $($resizer.find('.line'))
+    const $parent = $resizer.closest('[data-type="resizable"]')
+    const $resizeLine = $resizer.find('.line')
     const coord = $parent.getCoord()
     let moveCounter = 0
 
