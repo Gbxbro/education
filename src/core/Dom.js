@@ -13,6 +13,10 @@ class Dom {
         return this.$el.textContent.trim()
     }
 
+    get element() {
+        return this.$el
+    }
+
     set text(text) {
         if (typeof text === 'string') {
             this.$el.textContent = text
