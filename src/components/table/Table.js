@@ -27,9 +27,10 @@ export class Table extends ExcelComponent {
         const $cell = this.$root.find('[data-id="0:0"]')
 
         this.selection.select($cell)
-        this.$notify('table:input', this.selection.current.text)
+        this.$notify('Selection cell', this.selection.current)
         this.$subscribe('formula:edit', text => {
             this.selection.current.text = text
+            this.updateTextInStore(text)
         })
         this.$subscribe('formula:done', () => {
             this.selection.current.focus()
@@ -61,7 +62,7 @@ export class Table extends ExcelComponent {
                 this.selection.selectGroup($cells)
             } else {
                 this.selection.select($target)
-                this.$notify('table:input', this.selection.current.text)
+                this.$notify('Selection cell', this.selection.current)
             }
         }
     }
@@ -91,7 +92,14 @@ export class Table extends ExcelComponent {
 
     onInput(event) {
         this.selection.current.css({'caretColor': 'black'})
-        this.$notify('table:input', this.selection.current.text)
+        this.updateTextInStore(this.selection.current.text)
+    }
+
+    updateTextInStore(text) {
+        this.$dispatch(actions.changeText({
+            id: this.selection.current.id(),
+            value: text
+        }))
     }
 }
 

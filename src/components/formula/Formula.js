@@ -22,9 +22,12 @@ export class Formula extends ExcelComponent {
 
     init() {
         super.init()
-        const input = this.$root.find('[data-type="input"]')
-        this.$subscribe('table:input', text => {
-            input.text = text
+        this.$formula = this.$root.find('[data-type="input"]')
+        this.$subscribe('Selection cell', $cell => {
+            this.$formula.text = $cell.text
+        })
+        this.$on(state => {
+            this.$formula.text = state.currentText
         })
     }
 
