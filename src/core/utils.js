@@ -28,3 +28,27 @@ export function isEqual(a, b) {
     }
     return a === b
 }
+
+export function camelToDashCase(str) {
+    return str.replace(/[A-Z]/g, m => '-' + m.toLowerCase())
+}
+
+export function toInlineStyles(styles = {}) {
+    return Object.keys(styles)
+        .map(key => {
+            return `${camelToDashCase(key)}: ${styles[key]}`
+        })
+        .join(';')
+}
+
+export function debounce(fn, ms) {
+    let timeout
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout)
+            fn(...args)
+        }
+        clearTimeout(timeout)
+        timeout = setTimeout(later, ms)
+    }
+}

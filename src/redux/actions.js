@@ -1,4 +1,4 @@
-import {CHANGE_TEXT, TABLE_RESIZE} from '@/redux/types'
+import {APPLY_STYLES, CHANGE_STYLES, CHANGE_TEXT, CHANGE_TITLE, TABLE_RESIZE} from '@/redux/types'
 
 // action creator
 export function tableResize(data) {
@@ -11,6 +11,27 @@ export function tableResize(data) {
 export function changeText(data) {
     return {
         type: CHANGE_TEXT,
+        data
+    }
+}
+
+export function changeStyles(data) {
+    return {
+        type: CHANGE_STYLES,
+        data
+    }
+}
+
+export function applyStyles(data) {
+    return {
+        type: APPLY_STYLES,
+        data
+    }
+}
+
+export function changeTitle(data) {
+    return {
+        type: CHANGE_TITLE,
         data
     }
 }

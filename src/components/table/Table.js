@@ -4,7 +4,9 @@ import {createTable} from '@/components/table/table.template'
 import {resizeHandler} from '@/components/table/table.resize'
 import {isCell, matrix, shouldResize} from '@/components/table/table.functions'
 import {TableSelection} from '@/components/table/TableSelection'
+import {defaultStyles} from '@/constants'
 import * as actions from '@/redux/actions'
+import {parse} from '@core/parse'
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
@@ -24,17 +26,29 @@ export class Table extends ExcelComponent {
     init() {
         super.init()
 
-        const $cell = this.$root.find('[data-id="0:0"]')
-
-        this.selection.select($cell)
-        this.$notify('Selection cell', this.selection.current)
+        this.selectCell(this.$root.find('[data-id="0:0"]'))
         this.$subscribe('formula:edit', text => {
-            this.selection.current.text = text
+            this.selection.current
+                .attr('data-value', text)
+                .text = parse(text)
             this.updateTextInStore(text)
         })
         this.$subscribe('formula:done', () => {
             this.selection.current.focus()
         })
+        this.$subscribe('toolbar:applyStyle', value => {
+            this.selection.applyStyles(value)
+            this.$dispatch(actions.applyStyles({
+                ids: this.selection.getId(),
+                value
+            }))
+        })
+    }
+
+    selectCell($cell) {
+        this.selection.select($cell)
+        this.$notify('Selection cell', this.selection.current)
+        this.$dispatch(actions.changeStyles($cell.getStyles(Object.keys(defaultStyles))))
     }
 
     toHTML() {
@@ -61,8 +75,7 @@ export class Table extends ExcelComponent {
                     .map(id => this.$root.find(`[data-id="${id}"]`))
                 this.selection.selectGroup($cells)
             } else {
-                this.selection.select($target)
-                this.$notify('Selection cell', this.selection.current)
+                this.selectCell($target)
             }
         }
     }
@@ -81,8 +94,7 @@ export class Table extends ExcelComponent {
         if (keys.includes(key)) {
             event.preventDefault()
             const id = nextSelector(key, this.selection.current.id(true))
-            this.selection.select(this.$root.find(`[data-id="${id}"]`))
-            this.$notify('table:input', this.selection.current.text)
+            this.selectCell(this.$root.find(`[data-id="${id}"]`))
         }
     }
 
