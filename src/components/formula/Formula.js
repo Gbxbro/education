@@ -9,8 +9,13 @@ export class Formula extends ExcelComponent {
         super($root, {
             name: 'Formula',
             listeners: ['input', 'keydown'],
+            subscribe: ['currentText'],
             ...options
         })
+    }
+
+    storeChanges(changes) {
+        this.$formula.text = changes.currentText
     }
 
     toHTML() {
@@ -22,9 +27,9 @@ export class Formula extends ExcelComponent {
 
     init() {
         super.init()
-        const input = this.$root.find('[data-type="input"]')
-        this.$subscribe('table:input', text => {
-            input.text = text
+        this.$formula = this.$root.find('[data-type="input"]')
+        this.$subscribe('Selection cell', $cell => {
+            this.$formula.text = $cell.data.value
         })
     }
 

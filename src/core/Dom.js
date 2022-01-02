@@ -10,15 +10,30 @@ class Dom {
     }
 
     get text() {
-        return this.$el.textContent.trim()
+        if (this.$el.tagName !== 'INPUT') {
+            return this.$el.textContent.trim()
+        }
+        return this.$el.value.trim()
+    }
+
+    get element() {
+        return this.$el
     }
 
     set text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text
         } else {
             throw new Error(`the passed value: ${text} is not a string`)
         }
+    }
+
+    attr(name, value = '') {
+        if (value) {
+            this.$el.setAttribute(name, value)
+            return this
+        }
+        return this.$el.getAttribute(name)
     }
 
     id(parse) {
@@ -70,6 +85,13 @@ class Dom {
         Object.keys(styles).forEach(key => {
             this.$el.style[key] = styles[key]
         })
+    }
+
+    getStyles(styles = []) {
+        return styles.reduce((total, value) => {
+            total[value] = this.$el.style[value]
+            return total
+        }, {})
     }
 
     find(selector) {

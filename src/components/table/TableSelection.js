@@ -21,11 +21,23 @@ export class TableSelection {
         })
     }
 
+    getId() {
+        return this.group.map($cell => {
+            return $cell.id()
+        })
+    }
+
     clear() {
         this.group.forEach(item => {
             item.removeClass(TableSelection.className)
             item.css({'caretColor': 'transparent'})
         })
         this.group = []
+    }
+
+    applyStyles(styles) {
+        this.group.forEach($cell => {
+            $cell.css(styles)
+        })
     }
 }
