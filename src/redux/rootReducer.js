@@ -1,5 +1,11 @@
-import {APPLY_STYLES, CHANGE_STYLES, CHANGE_TEXT, CHANGE_TITLE, TABLE_RESIZE} from '@/redux/types'
-// import {toInlineStyles} from '@core/utils'
+import {
+    APPLY_STYLES,
+    CHANGE_STYLES,
+    CHANGE_TEXT,
+    CHANGE_TITLE,
+    TABLE_RESIZE,
+    UPDATE_DATE
+} from '@/redux/types'
 
 export function rootReducer(state, action) {
     let prevState
@@ -26,6 +32,8 @@ export function rootReducer(state, action) {
             }
         case CHANGE_TITLE:
             return {...state, titleText: action.data}
+        case UPDATE_DATE:
+            return {...state, openedDate: new Date().toJSON()}
         default: return state
     }
 }
